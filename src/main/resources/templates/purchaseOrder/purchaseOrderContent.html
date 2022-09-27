@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!--    <link href="./index.css" rel="stylesheet"></link>-->
+    <style>
+        table, th, td {
+            border: 1px solid rgba(0,0,0,0.5);
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 5px;
+        }
+        th {
+            text-align: left;
+        }
+        td {
+            font-size: 8px;
+        }
+        html{
+            font-size: 8px;
+        }
+        body{
+            line-height: 1.5rem;
+        }
+        .flex{
+            display: flex;
+            display: -webkit-flex;
+            display: -webkit-box;
+            -webkit-flex-wrap: wrap;
+        }
+        .field-group{
+            margin-top: 0.25rem;
+            margin-bottom: 0.25rem;
+            margin-left: 5px;
+        }
+        .logo{
+            justify-items: left;
+        }
+        .top-head{
+            display: flex;
+            display: -webkit-flex;
+            display: -webkit-box;
+            -webkit-flex-wrap: wrap;
+            justify-content: center;
+            -webkit-justify-content: center;
+            align-content: center;
+            -webkit-align-content: center;
+            align-items: center;
+            -webkit-align-items: center;
+            text-transform: uppercase;
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+        .segment{
+            margin-top: 1rem;
+            margin-bottom: 5px;
+        }
+        .field-label{
+            font-weight: 600;
+        }
+        /*.mr-1 {*/
+        /*    margin-right: 0.25rem;*/
+        /*}*/
+        .field-value{
+            white-space: pre-line;
+            max-width: 85%;
+        }
+        .flex-row{
+            display: -webkit-box;
+            display: -webkit-flex;
+            -webkit-flex-wrap: wrap;
+            flex-direction: row;
+            -webkit-flex-direction: row;
+        }
+        .equality-child{
+            flex-basis: 0;
+            -webkit-flex-basis: 0;
+            flex-grow: 1;
+            -webkit-flex-grow: 1;
+        }
+        .flex-center{
+            display: -webkit-box;
+            display: -webkit-flex;
+            -webkit-flex-wrap: wrap;
+            flex-direction: row;
+            -webkit-flex-direction: row;
+            justify-content: center;
+            -webkit-justify-content: center;
+            justify-items: center;
+            align-items: center;
+            -webkit-align-items: center;
+        }
+        .signature{
+            text-align: center;
+        }
+        .signatureend{
+            text-align: center;
+            margin-top: 30px;
+        }
+        .title{
+            display: -webkit-box;
+            display: -webkit-flex;
+            font-size: 8px;
+        }
+        .content{
+            width: 15%;
+            font-weight: bold;
+
+        }
+        .right-child{
+            border-left: 1px solid  rgba(0,0,0,0.5);
+        }
+        .box-top{
+            border-bottom: none;
+        }
+        .box {
+            border-color: rgba(0, 0, 0, 0.5);
+            border-style: solid;
+            border-width: 1px;
+        }
+
+    </style>
+    <title>Title</title>
+</head>
+
+<body>
+<div th:each="purchaseOrder : ${purchaseOrderList}">
+    <div class="logo">
+        <div style="width: 50%; float: left">
+            <img
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKMAAAAoCAYAAACSG0qbAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAABk8SURBVHhe7VwJeJXVmb5UdhSsVbs9rVO3sXVGu2gZ25m2KmrH1taZpz6dTqePXR3rbjVAbpabPYRdKAgiiFQIiIIVF0QSKShC9oSAEAKyryGB3H395n3P+c+9/725gQQ7lEo++PL/9+z/+d7znu+c/9zrkB5KzLqeTA4GPPJWR6tMObBO7t35kly/eaYMbSyS65tnSfHedVYqSCRiFRjFtScl98m5ID0Go132hDrkzWNbpWD/GrmrZZF8sWGSONZniqPGCc0RR4NLBjQVyLCmYhneUCznNxYjLE8cVS7Z6z9ulRIhFHsE8j45NyQBxjSo6ADTrWrfIYX718k9O5bK1Y1PiWMjwFaVBdBli6PWJf0AskGNhXJBU4mMaCqVEQ0lcgEAOLyxRCk/83oBdEhDIfLnSoRsiP9R/CEg+6RPKEnMWHGsVUZtWyifr50o/d93WUyXq0CnwFc9FuqU4RuK5YqGKXJV03T5dN1EcbyPuJos6VfnkqENRXJBfTHAZ1OCE8p7B9Lc0/Kiqi/Wx4t9YpM4GEc1PwfGGyv9wV5ksGHw9S4E2w0B6zmqM+VOgHTlsW3dMtluX5uUHVwvVzVPE8cGp/SvKwQAyYgEomZHqpqyEW+kD459YkSB8bvNc8F+ORZw9BRLNnPU58o1jdPkUMirEifEQIhXLEZSZCf8wjtaFmJKdsogANsOSMWOYNHt/jaVllN1n/QJxVHZsRuMmAmgEDR2wDixIl5uJaOQE3vi4SXAtc1/TC6rmQyg52lAxsvOkU2eIzpR7HS9xjMN4tOrr2+zoOfi+M9ti2UwptQRFlDIjI56l/zX9pdUAvbl6cDF7g/+784Vcl5dPsBo+Y3V2bLJe1hHpi08Is82+uXHL/vk8390y6CJJ+TCKR658U9+yXvPK4FoCGlM+THxhUNyxBuSNn9Q2nwBOQrtCOg0bn9IfW7zIs4bkANQXyissyqJydIPPHLz4qD0H+8VR65fHHl+GVjmlxsX+KR4vQetCVppT0fYzrC8vdsnv13pla/N8cr5U90yeKJHLp7qlVEvuKVsg0dOhNjec1scl26aBD8OYFQLjBK1ABlWV6Rj0Y9R659dQjDPxuMfytvtLdJoQHUSuaimVO03curXzJgFMB7SkUlFR+S+VR5x5AQAiJg4iqLiGIdGlkF5LYEWIDzTL79e6UN6DcgnViN9BsKzkZ6aGZWvzme8yM2LUF4m46z4jIgUAtCUbcdDMrTkOACIcouhpdAypFN1RnRYPjQzKA9VME9igPVMolK43o1n8eGZUG4ByirGlc8zHjoO7SnB50LcZwXlxvlu2ef+KMD/+xbH8DpOn0UJ1sIU+syRWh0LoHDzxbCcPxaR77cswgIEq2oAylGXA5aDbsyW722dLxvd+1Q6u9zQNBusmDpNdwVjWwjGLwUz0fjjaDAYisCg4ZKUYVCAdcgEP3LGpPB9gDEfYQQRFSC6BUxHuRvs6sDYiscBEPMafFJ3JKRAFg9PKt9+tTQ3Kp+c6kGJaancJuyrqOzxBGTAONTtYrugCny28vh846m2egj+MT4pAVOei+LQWy4EiQWUqmzxRu3TWEIGrc+T8+rzZARW2fbtGq6QB9TnK5De8sECK7XIwx+uhL+Yq/YfVfp0YIS0BcNgBgCRoDGGMSA5mSL9ZwGQ8TUwOhnT5INRRy0yYAQzkXlMHPL84S9InwsAq3IIFutKAKr7bpTMPC6AUtNPqRqmMVm7HyDPxPMoprVUgZHln6IOKlj8N6+de4B0nA+AECTUYdwjxJSaTsr2rVOsSSAq/9ICl1ED5n7wNy+oLZGnD1WDMbkwsuK7BSOAWATAKENDaTSqMSKVRmV8KQFjC2d6hPcrA8vx3oRhKrytXE/Tdy+zgRH6iXGsD4wUT28YGMryOW2yPsabNKZctgtA/9yM7oGyrR1AzyAQWa6VL14XyuY9n4UsmK4ekydLJGvtuQVIRwJI+g3JZU3TrKhkce19ByDKVWBKBaJdGU+/k4x4gbXPaE+fCsZ/mgufjow4wTIElfc0PEGUHZRhk/xy1eyQXDwNoMuBsdVUbqkxnt2QAOMtiy0wcpq2gTEpPa8EYB6Ak+uVz04PyOWzIzJ0IvLAh1NsqxjTlp6K+h+vdKvyk71IlONCPoLNnt6Wz5Hll4v/6JXLnglL/xKANgd5DChNPSbvmLA0HCETnxuiwGiUYPx8/WQrKlk6wlhlbnQq5uOGOEFFPzOhiXK6D0+AcUfosLy7E4ZzohEEH5UGUNMZNDcornVcNHAf05icE2FInmvklI5p1j6t240I1rm1nP4kwYi0qWA0ynD4dUu3pe6jspawuDidO22sS+U92+oMy1GszO3y/aWoi4sUA2CTj+DMCcvYteZ5jMRk14mgXP60tYgyDG3ygqWHTWQdvV04/X1KEhjV2xEsRrR07YDj0YDc07JEBmzIU68FuVHuwOJkYH2BnuKTQNgViFQNRqd0yDH5wlQYm8zEjjeqpmS/+MI2QytnjH/si4eQfHFGGkCyDIDx9kXar7t7WWd6MCLsmtk8tJG8aa+e2rY52NwBMILNVLmmfCry/2R5AsTtfg4suAAmXTwtnq/QLd5QavuTe3jMX9BOJ+uxgZH3OSJ/buk6WD6OkgRGtceIFfKKjm1WtE1SsLkv1CnLjm6Rsbvelm9tmyfDqriAyVQA7YdFjgInyjOaAGOJOOqd8vrh/aqjuywassPijnLxwQqpPN1jKjcGpeo4xZAEsB0Ap2JGpO8HwJuH0iUlxJRual28FWXAXVBlmzqouaaMqNy/CgNLsaKVRtWDZ8sNyfGQbouGop3pk+XRSrgsebYyeAU7Xjev00rx8ZYkMJK1htYXyqV1mIdOQ3yRgFS2bZcHd74hA2sLAWz4jTxGxrItQBKMAzdlya/f2dvVePCpit6lr2e2k7QmNtATYVoBlA8AgvgUZ5VnX8Ck+oyMz43I6zsN2+hy9F8tidITcsVssFZpypSNgfP+IV3PYPqZxlc09eTH5Kk6Ha+fSV+7lm4kJsPhH3dZ2GRzltDD5WS5/94lmRkVWMiOLrljS2KL5nRl6r71YMos+JgJdiQYh23OkuuX7lMMlmBGXLP96OjumaOraNM48sFcxnC8AoyjugOjcgN0HGuxvynqXmLycivKSWWtgqhMquaKF+w8FmrqiMeznt5B5+UPUI7ZMzXluESqD2h21YIyY8nuhV00Ayfq7dkz9kb+mkOC5egWdwEjDzQo37E+V65snCp7Ah0qYVyYtxft2OWHc16da/mUGowjtjhlxLyjGhjc+GWHg1UunXZ6vtE3F7kTviPLAshHlWuf8+6XMfXZwYj7HyzXiwL+696kyRJASkdmCuDA7I9UhKW1A2wGVzsOICra852Fp/M83HNFPXYwop4Fm/3ih/viGOeVa+folXz3hojKqy30PwNy53KT9qNKTNbsCch5qP+vBcaZDSG5ZGoCX13BSOUJGzDZYKyaHRvHyr82z5NlbVutLL2XFR0t4qhyKtZVi5wPnDJg5kFrWrNYAMb79gun9372lyvQ8QZwFhhvS7eAYRzuH6ywDIT+1GOyJwIwZoEdDUioKOs3bwaleh8GA9grvhPAOADovpV8edB7ozmKUvxT1DO9yi/BGJ7Tif4aG5Itxzigum/9dc/qAfIvC+2M+lEkJqt2YJBgQP41gEiZuBEDrzDhu6cHI5TT6oVNpUoHNWBxwld/G53y9U1Py5g9q+TN9lbpsK94TyFXNkyRwdZxsos258igZw5rMJpOJ5MsMaOu5xCh/HSFjf1YHqbpW+P7jCkLGIDksbe5IOjt5JUejL8D4DbsheE5haeA8cG3T+89c79xKM8syiwwTqgLgDMRPiYoo5YH5T/gfnQnfIPmeMIjP3r1uNywoOc2OrnEZHUrBglY24Cn95BMzjGrHj54SWL2OCkYE2p9BpAGNRTAD+TJ71ysnrNkcE2B3Lx5nuTvf1fCJ8FQ0YG1ekFDZmx2ymcWHbN8RksBzMtmkM1684g67TVzYCQAUBnOAuPt8dW0zWdkHEB/yzJ2QO+6co8bBnYBkGY/lOVhwZXzrl+2t8NIuYi3gxH1/GAJAdO7gcX06qCIKYdXAHvJFrdmxsfDUnsU8U929wwxyaj0yz/O9Eoe2PS657uCcf3BoPx4OdLM8cnNYM5FH7CvojK9/oQs3HRCpZlQc0Jeb/VIzZGg3LRAr+YrCEa0LVFvVGY1eWRMJY8D2tsSk5m1brlxYUCunQVXAf1doxZ6Ok1LW1B+tdItIxeivJKAPFrRKTPrQSjpgKhVg0+pAaX12R53PnzBAfUAaF22ON4fI385sVNVmCqvtWOqrs1GnhIZgtX0ra/tUQbrx85WHQ8w5bBTeurFUfhwGF1Y+CQZT23taCN0maa53VJsGLjnkrfe2tA2YKSCDV/ZogGnFjB2MKoVce+ZsYlAy7UGlmmzKyat7SFx88XDoyyTb238MrcxHTsir8sr5VsD8oe1brl+XjIY71wMH/7hiHxtrk/uf8svNzwPQDzil1vKT8j3XgzLzywfcyQAeOnTaMtjfhkxSe/HVuzEZ7Wy16CqPYq8D/hl87GEzQIxDMoCAKvALY9WYkCsD8uPlsAGj/nk569pglizC31Z7JMBk5C2OCrDxgflJ8tAGumASJBxSuW5Q15PvoltXQHKIU2FMqAaFksj1W6snrGyZvrzGpziatqvmCVuWIKxICKj8QC9kdL1eFC1+oTawHhbdwsYxsPYS1q6n+a6Cvcz0VkEsimD6gyLJ6J90wHjYSgTbtLkReWVrT3dI6SBY3LHizSUrRy+487TbW0Poo5H+FwRKXrPIxdOJHDsjKRX3Y7HdfrfV/gBugQY730dvu1on+zyEjwcjPRpo7L9OECVjUGdF5EHwFiUW5cg7diIrN1n7BGV1QRjlpm90CcZfpkOBtSi2+/I98i3/qRBp0UP+hgXZqOD8lR9os2zGvFs4xMM3wWMBCKZ7pK6CRIByi+pKcPKOl+FU1PTGyVz8gAF/UpvuOupn3fad8bByDcw20NYwDjRCTxCZYxIhYF3eXQnnUp4vM2Rj060+1fUk23tKANDMXo1C6MjTnHa/Icvgk3A4qpsUw8A86WZ5iBDRH6/iit6tMeehgOsWIPHdHh60YasOgQgZQblE2XRxIyBev/9Jf0sbQEA9eGgBFXfoK6H/XLAm8y+o+Aa3L6UYIjJfat9ct1zGowdEYDhQb9U7uNn1scyTJsisnoP+ilTAEb9TN+Gz/3JSXZiiMnbfH2bowffZ6Z5FLvqZ9NSsgFgzWQYy06EG1m+C3VkGPCKTKrivi3T03/H8yQBCmCjTzikCtazyTcbn1EsySlZgdJM25bqabtEBvJcZPzUj946MTLzUI1aBCkwVjulXY7KKKyeSdNxAxqg5HlkR6cZXemNGEH44DKwomERM0VSCcZTHZRgPZgqWj3mbY9dzOeY/OzVE2o6jucz9eTyXCRZTwOjLQRjc6o2bTDp4Qt/dganOTNAU+vSA0Gd9uEhCzB8P5OXisFZj6mb0hYAyz8cgu+oy/rK3E757RumnzS4HI+5ZZOV/r4Kj/yzBcbJVWhbnpVW5e/ar44St9z3hgbgTYu88CkNcHXaVQRjYUAKNmDQuFgW6lQDWcdfMcsnd72aAFs6cTwZkNY2XX8yGNH2BBBL1JTcr9olAXOe0dbepw9Wwyfk11ZzpT+YUn2DEODkCe6B9ZjSa3Jk4MZ8aQ13qHxRwMV+QvzObeXqzKMBY2vwMKYHUH1mChipBEpmWO5f5VFfGbCLD21TUzM6g9NmP07PxnDGiJymF+l83R6UMOnhb/78da8ccNvricqLW90yvAx5k1wJ68pdgFINdj2mtfz3n6308Y18KMFLVi30ywtbyDqJPqH4Y0GsugEynhKyt42KfNfOTYCtLQDAAowBi8lf2Y76MlgmDRWR2bX4XGyBBEIwGp/xgZV++cZz2t9MMqxNrp7jld+s0MxIMF49y5Sly1tNMBYBQEV+ueslq79sRQ2bgBmE7/EfxAB+EDZSV5s+hEXrI15ZsrkdqSMAIwZwmQ2Mht0IrIvqSqQzajNKmjaXH26Uu1rL5Qu1E2RwHZmwSEZumSezDlmnw5FHd03i6wphdB6nb26mk1kJxmbrCJnykZQBU5TGIIhyAVg45IMnk+GQlocRFFOh8TQ0leBN8RlvWWyBcRk6oTswcjFCJbvy9FA2OjOHijq4b2hAwY35CWiH+Tw2Ju8fIYPw+TgdGUUbsDiKl6/yQlkHw/jaMsstn5sRkn+YE5TBE9A2J56LYDXPwjxMy2fK9olbfd9HS1sAhn44oDbgtaC+jKB1kCImw6f44UsmfDDFjPN1P4xeE5bLZxm3QtslVQZN9MtvrUO9N5V3ypexEmZa/SLT8hnB3m7U73jII9Pq9YA0cuE0n9z7phk8zKORoGcF3aaERDUY1aC2wEiAkBl5/VRDqewOWj8/ouvvpaRWqOWO5gXqhLjxO3mavNFrfTsQjf0EGYgGMUCxG9PcK8BZn+3xyDd4CvIz3oQDXLcu1p3S3UGJ+PRu1MTZP8fj0VHmPisqrnetqQiPm+BF3fFHggCME0ZjfoLQAIxqGJPMyvrtbbYrw50hWbcv2R/UzAgwWtM05d7XfPKVeXxWGPYBN1qRiLMz45rdaNejBDbb29VOHT4w3pMRue9NDcZvgRmvmm2YUYNh9Q4wo1rAYKbchPIewWIIix8j978Jvzm+b2gHjy6jtcOH2aMTd3rgTk0F45VbpiuAcHNbvQbckCnTDm5kCZakB1hPZfTutxQTsg7jl/Krse2RxAiKsiPJKASNMUg6I6WGg1Gvf7ZdFm8na9rC4TN2e1AChr7oj3755vPoTG7VmPJS60sXDiD+/i2LXcD2MSpvrT4yJ89ajqNO7jsSVElgTFETbo8nULMCUvmh6R+KrkUzI6dpGlMbeFcnAPJEQO5Z4ZWvz0/0KePtPqNg2eMo9shNahPcDhQtn3sKZecEASj9fP+2yC1XzmYfGjDGtM8Id8LIDxbDvchhel1ehHbEYCmpsvooLowHm5YE5YY5eh+T5U3eiLBStscCY8aHbykfkCth4z/SL7xm0wzZEeDc3jPRj6+vRn7a+pJaQQ8335kBEIfUF8lnrFNBugkmR0wunw0/I9syojFOqsGUouE5EfnuC3rbZFq9BSwTT2Y8CRgHTWJcRD49GQPA7OlR7fXZ78naY/0yqzHBiKb1ScKPVhyPwV0yBc/Dqdk8j11N+ebKNNkiQ8afkA+TviFoCo3JUTLjA2H4mXra0/VH5eKnAJKMmFTsMqykw38NX/TLzxowxuSwH4z9RKdc9oxfag5y3zIkb+0GI2JmGjbBIyPL/fI/yzWQRv7JI5c9nQzGlWTGMfa2RWXQBK98Mb6rgBVzK/r0gaDctdQja/eEpLEjJDMaUC+3jkr0my8tMZm4AWBUPq5+Foc/ioANY+K/j8N30vxZk8H8WROE37p5vmzwHdD5eyjLjjXLp6pK1ekf+3dmFCvWZMqSo81WSt1p+qrvF232yoBxdOhhHPqGRWhkMQDKK78GkBVDx/lleUti1Ta5Ch0wmobHNEF1dsrI+drdSPpCFhVGHzCBnazrzFjDjkInE5T0XQvhHzI97xnm8smvXvHAT0tMfz0T3elTalA+v+PDgxQFKLuYDIF7TtMEOfdIMQCHjvPK9BrzTJppUqXNj0FX5MNq2sTzyu+Y++TSyQRE8vDIfs8tP16qmVDHxBSQv4Mp2PEE2vQQwD3aLT/Dwotxj6xxS9l7ut9+goXM7eX2lXFM1u0J2rZ7dE2+SEjOK3Xb9hsFbB2Qq/hu/HHY8TFcx3pRh9l5YIspMZnbEJIvzdSEorZ2eLPkaBNWyhkyDKxF9iIYOW2TJdW3/jDNnl9TIr/c/md5/lCDNLr3wzeCcx0OSDt8pGbfYXnxSLP8rvVVGVrN14VZcj5W2CPqS+UigPCTUOUCoJx7tukffdLN0h2kPxnV0ngkIHnrPHL38hA6zyM/RKdmVnql9oiZivBIqj9M/vSS+oUsgrF/HIwUXe9rGNGj17rlF2945RdYXbve86Hz9RTy0UTnX38wII9X+OQ7YJ+rn/HJl+GPfa88INlrA9J0lAbWJlKisqR7JvOsZmDothsxkNP3RnQaGlsvKE2K1CvrN9M/lXWE0/wiBgJUWKKG7iU1s86jQ/nX3Ol/8R9+qjyxUwbytDZ/bawO1wYXQJWn3ieT4dSVv0rGXyKrygBrPgF9EqtkKj7X2r5Lzfz1zIf8/F1Ghm0YK1l7KnVlqW38f5QuC5guYPxbiQ18ENOav3Wr/paS9JN4lFXHWqRo/1rJ21sheXvWQHmttLRCXAjL2V+pvi2o49dIPu7z9zKeYautcJ3Pte8dKT/SmOhkON9mDJ4J6bK1c9aAMbkFZ7JPzlaJg/GMmMZi9jMJg7OXGfskVRy0id2XMJ4AP8VDLbvxM0ev9VFd45/5B2rS8GrujfDzmZZ0q+k+MJ6dosBoVlqUtCayAk0qk8Z+bz6YMLsasd+fKTn1AqZPzhbp4jN+3OSHL3n0Ng23U6jqTU8fGM9G+diD8cmKTrl2Dg8J+OQb833y1Xk+GbmAe2l9YDy7ROT/ADkRbZsVnVx4AAAAAElFTkSuQmCC"
+                width="160px"
+                height="40px"
+            />
+        </div>
+        <div style="width: 50%; float: left; text-align: right;">
+            <div style="display: inline-block; text-align: center">
+                <div><span>Mã đơn hàng: </span><span style="font-weight: bold" th:text="${purchaseOrder.code}">PO_ANHPHU_04</span></div>
+                <div><span>Ngày đặt hàng: </span><span style="font-weight: bold" th:text="${#dates.format(purchaseOrder.purchaseDate, 'dd/MM/yyyy')}"></span></div>
+            </div>
+
+        </div>
+    </div>
+    <div style="clear: both"></div>
+    <div class="top-head flex-center segment" id="title">
+        <div style="font-size: 16px">Đơn đặt hàng</div>
+    </div>
+    <div class="segment">
+        <div class="title">
+            <div class="content">BÊN MUA:</div>
+            <div>CÔNG TY CỔ PHẦN CÔNG NGHỆ SAPO</div>
+        </div>
+        <div class="title">
+            <div class="content">Địa chỉ:</div>
+            <div class="field-value">P1006, B6 Khu đô thị Mỹ Đình 1, phường Cầu Diễn, quận Nam Từ Liêm, Tp Hà Nội</div>
+        </div>
+        <div class="title">
+            <div class="content">Mã số thuế:</div>
+            <div class="field-value">0103243195</div>
+        </div>
+        <div class="title">
+            <div class="content">Email:</div>
+            <div class="field-value">muahang@sapo.vn</div>
+        </div>
+        <div class="title">
+            <div class="content">Điện thoại:</div>
+            <div class="field-value">18006754</div>
+        </div>
+    </div>
+
+    <div class="segment">
+        <div class="title">
+            <div class="content">BÊN BÁN:</div>
+            <div class="field-value" th:text="${purchaseOrder.vendor.name}"></div>
+        </div>
+        <div class="title">
+            <div class="content">Địa chỉ:</div>
+            <div class="field-value" th:text="${purchaseOrder.vendorName}"></div>
+        </div>
+        <div class="title">
+            <div class="content">Mã số thuế:</div>
+            <div class="field-value" th:text="${purchaseOrder.vendor.taxIdentificationNumber}"></div>
+        </div>
+        <div class="title">
+            <div class="content">Email:</div>
+            <div class="field-value" th:text="${purchaseOrder.vendor.email}"></div>
+        </div>
+        <div class="title">
+            <div class="content">Điện thoại:</div>
+            <div class="field-value" th:text="${purchaseOrder.vendorAddress.phoneNumber}"></div>
+        </div>
+    </div>
+    <div class="segment">
+        <div class="customer-area box-top box flex flex-row">
+            <div class="info-area equality-child">
+                <div class="field-group" style="text-align: justify; padding-right: 5px">
+                    <div style="font-weight: bold">Ghi chú:</div>
+                    <span style="white-space: pre-line" th:text="${purchaseOrder.note}"></span>
+                </div>
+            </div>
+            <div class="note-area equality-child right-child">
+                <div class="field-group" style="text-align: justify ; padding-right: 5px">
+                    <div style="font-weight: bold">Kho nhập hàng:</div>
+                    <span th:text="${purchaseOrder.warehouseName}"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table style="width:100%">
+        <tr style="font-size: 8px">
+            <th style="width: 10px">STT</th>
+            <th style="width: 60px">Mã hàng SKU</th>
+            <th style="width: 65px">Barcode</th>
+            <th>Tên hàng</th>
+            <th>Đơn vị</th>
+            <th style="width: 10px">Số lượng</th>
+            <th>Đơn giá (-VAT)</th>
+            <th>VAT</th>
+            <th>Thành tiền (-VAT)</th>
+
+        </tr>
+        <tr th:each="lineItem : ${purchaseOrder.lineItems}">
+            <td th:text="${lineItem.index}"></td>
+            <td th:text="${lineItem.sku}"></td>
+            <td th:text="${lineItem.barcode}">50</td>
+            <td th:text="${lineItem.name}">50</td>
+            <td th:text="${lineItem.unit}"></td>
+            <td th:text="${lineItem.quantity}">0</td>
+            <td th:text="${lineItem.price} > 0 ? ${#numbers.formatDecimal(lineItem.price, 0, 'COMMA', 0, 'POINT')} : ${'0'}">0</td>
+            <td th:text="${lineItem.getTaxRate().stripTrailingZeros().toPlainString()} + '%'">0</td>
+            <td th:text="${#strings.replace(#numbers.formatCurrency(lineItem.amount), '.00', '').replace('$', '').replace('&curren', '')}">0</td>
+        </tr>
+    </table>
+    <div class="segment">
+        <div style="float: left; width: 50%">
+            <div style="text-align: left; margin-left: 100px">
+                <div><span class="mr-1">Tổng giá trị trước thuế: </span></div>
+                <div><span class="mr-1">Thuế giá trị gia tăng: </span></div>
+                <div><span class="mr-1">Tổng giá trị đơn hàng bao gồm VAT: </span></div>
+            </div>
+        </div>
+        <div style="float: left; width: 50%; text-align: right">
+            <!--        <div><span class="field-value" th:text="${#numbers.formatDecimal(purchaseOrder.totalAmount - purchaseOrder.totalTaxAmount, 0,'COMMA', 5, 'POINT')}">0</span></div>-->
+            <div style="font-weight: bold"><span class="field-value" th:text="${#strings.replace(#numbers.formatCurrency(purchaseOrder.totalAmount - purchaseOrder.totalTaxAmount), '.00', '').replace('$', '').replace('&curren', '')}">0</span></div>
+            <div style="font-weight: bold"><span class="field-value" th:text="${#strings.replace(#numbers.formatCurrency(purchaseOrder.totalTaxAmount), '.00', '').replace('$', '').replace('&curren', '')}">0</span></div>
+            <div style="font-weight: bold"><span class="field-value" th:text="${#strings.replace(#numbers.formatCurrency(purchaseOrder.totalAmount), '.00', '').replace('$','').replace('&curren', '')}">0</span></div>
+        </div>
+    </div>
+    <div style="clear: both"></div>
+
+    <div class="segment" style="text-align: justify">
+        <div><span class="mr-1" style="font-weight: bold">Lưu  ý</span></div>
+        <div><span class="mr-1">- Giá trên đơn đặt hàng là giá mua chính thức, nếu có khác biệt liên hệ với phòng mua để điều chỉnh trước khi giao hàng</span></div>
+        <div><span class="mr-1">- Sau khi nhận đơn đặt hàng, Bên Bán có trách nhiệm giao hàng trong vòng 24h đến địa chỉ:...</span></div>
+        <div><span class="mr-1">- Bên Mua có quyền không nhận hàng nếu giao sai hàng hóa, không đúng đơn giá, hoặc giao sau thời hạn giao hàng đã nêu ở trên</span></div>
+        <div><span class="mr-1">- Chứng từ giao hàng bao gồm : hóa đơn VAT hợp pháp hợp lệ, phiếu xuất kho hoặc biên bản bàn giao nghiệm thu hàng hóa có chữ kí xác nhận của Hai Bên</span></div>
+    </div>
+
+    <div class="segment">
+        <div class="customer-area flex flex-row">
+            <div class="info-area equality-child">
+                <div class="field-group">
+                    <div class="signature"><span class="mr-1">Đặt hàng</span></div>
+                    <div class="signatureend" ><span class="mr-1">Họ tên</span></div>
+                    <div class="signature"><span class="mr-1">(Fullname)</span></div>
+                    <div class="signature"><span class="mr-1">Đậu Thị Ngân</span></div>
+                </div>
+            </div>
+            <div class="note-area equality-child" style="margin-left: 10px">
+                <div class="field-group">
+                    <div class="signature"><span class="mr-1">Duyệt đơn</span></div>
+                    <div class="signatureend"><span class="mr-1">Họ tên</span></div>
+                    <div class="signature"><span class="mr-1">(Fullname)</span></div>
+                    <div class="signature"><span class="mr-1">Bùi Xuân Cường</span></div>
+                </div>
+            </div>
+            <div class="note-area equality-child" style="margin-left: 10px">
+                <div class="field-group">
+                    <div class="signature"><span class="mr-1">Giao hàng</span></div>
+                    <div class="signatureend"><span class="mr-1">Họ tên</span></div>
+                    <div class="signature"><span class="mr-1">(Fullname)</span></div>
+                </div>
+            </div>
+            <div class="note-area equality-child" style="margin-left: 10px">
+                <div class="field-group">
+                    <div class="signature"><span class="mr-1">Nhận hàng</span></div>
+                    <div class="signatureend"><span class="mr-1">Họ tên</span></div>
+                    <div class="signature"><span class="mr-1">(Fullname)</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

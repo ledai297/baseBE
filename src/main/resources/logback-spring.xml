@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
+
+<configuration scan="true">
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <property name="LOGS" value="./logs" />
+
+    <appender name="ROLLING_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOGS}/%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>utf-8</charset>
+            <Pattern>%d %-5level [%thread] %logger{0}: %msg%n</Pattern>
+        </encoder>
+    </appender>
+
+    <appender name="GeneralExceptionAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOGS}/GeneralException/%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>utf-8</charset>
+            <Pattern>%d %-5level [%thread] %logger{0}: %msg%n</Pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ImportProduct-Reader" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOGS}/ImportProduct/Reader-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>utf-8</charset>
+            <Pattern>%d : %msg%n</Pattern>
+        </encoder>
+    </appender>
+    <appender name="ImportProduct-Converter" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOGS}/ImportProduct/Converter-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>utf-8</charset>
+            <Pattern>%d : %msg%n</Pattern>
+        </encoder>
+    </appender>
+    <appender name="ImportProduct-Sender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOGS}/ImportProduct/Sender-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>utf-8</charset>
+            <Pattern>%d : %msg%n</Pattern>
+        </encoder>
+    </appender>
+    <appender name="ExternalAuthentiction-SapoCore" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOGS}/ExternalAuthentiction/SapoCore-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>utf-8</charset>
+            <Pattern>%d : %msg%n</Pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>512</queueSize>
+        <appender-ref ref="FILE"/>
+    </appender>
+
+    <appender name="MappedVariantListener" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOGS}/MappedVariantListener/%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>utf-8</charset>
+            <Pattern>%d %-5level [%thread] %logger{0}: %msg%n</Pattern>
+        </encoder>
+    </appender>
+
+    <appender name="Ship60EventTask" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOGS}/Ship60EventTask/%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>utf-8</charset>
+            <Pattern>%d %-5level [%thread] %logger{0}: %msg%n</Pattern>
+        </encoder>
+    </appender>
+
+    <appender name="MappedVariantListener-Reprocess" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOGS}/MappedVariantListener-Reprocess/%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>utf-8</charset>
+            <Pattern>%d %-5level [%thread] %logger{0}: %msg%n</Pattern>
+        </encoder>
+    </appender>
+
+    <appender name="OrderLogListener" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOGS}/OrderLogListener/%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>utf-8</charset>
+            <Pattern>%d %-5level [%thread] %logger{0}: %msg%n</Pattern>
+        </encoder>
+    </appender>
+
+    <appender name="SapoCoreWebhook" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOGS}/SapoCoreWebhook/%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>utf-8</charset>
+            <Pattern>%d %-5level [%thread] %logger{0}: %msg%n</Pattern>
+        </encoder>
+    </appender>
+
+    <appender name="AuthorizationFilter" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOGS}/AuthorizationFilter/%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>utf-8</charset>
+            <Pattern>%d %-5level [%thread] %logger{0}: %msg%n</Pattern>
+        </encoder>
+    </appender>
+    <logger name="AuthorizationFilter" level="INFO">
+        <appender-ref ref="AuthorizationFilter" />
+    </logger>
+
+    <logger name="SapoCoreWebhook" level="INFO">
+        <appender-ref ref="SapoCoreWebhook" />
+    </logger>
+
+    <logger name="OrderLogListener" level="INFO">
+        <appender-ref ref="OrderLogListener" />
+    </logger>
+
+    <logger name="MappedVariantListener-Reprocess" level="INFO">
+        <appender-ref ref="MappedVariantListener-Reprocess" />
+    </logger>
+
+    <logger name="Ship60EventTask" level="INFO">
+        <appender-ref ref="Ship60EventTask" />
+    </logger>
+
+    <root level="${logging.level.root}">
+        <appender-ref ref="ASYNC"/>
+    </root>
+    <logger name="MappedVariantListener" level="INFO">
+        <appender-ref ref="MappedVariantListener" />
+    </logger>
+    <logger name="GeneralException" level="INFO">
+        <appender-ref ref="GeneralExceptionAppender" />
+    </logger>
+    <logger name="ExternalAuthentiction-SapoCore" level="INFO">
+        <appender-ref ref="ExternalAuthentiction-SapoCore" />
+    </logger>
+
+    <logger name="ImportProduct-Reader" level="INFO">
+        <appender-ref ref="ImportProduct-Reader" />
+    </logger>
+    <logger name="ImportProduct-Converter" level="INFO">
+        <appender-ref ref="ImportProduct-Converter" />
+    </logger>
+    <logger name="ImportProduct-Sender" level="INFO">
+        <appender-ref ref="ImportProduct-Sender" />
+    </logger>
+
+    <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook"/>
+
+
+
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+        <resetJUL>true</resetJUL>
+    </contextListener>
+
+</configuration>

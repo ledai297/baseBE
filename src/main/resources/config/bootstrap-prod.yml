@@ -1,0 +1,13 @@
+config-server:
+  address: config-server-svc
+  port: 80
+
+spring:
+  cloud:
+    config:
+      fail-fast: true
+      uri: http://${config-server.address}:${config-server.port}
+      label: master
+      username: admin
+      password: admin321
+      profile: prod,no-liquibase

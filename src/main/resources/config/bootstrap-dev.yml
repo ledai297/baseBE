@@ -1,0 +1,13 @@
+config-server:
+  address: sapo-market_config-server
+  port: 8888
+
+spring:
+  cloud:
+    config:
+      fail-fast: true
+      uri: http://${config-server.address}:${config-server.port}
+      label: dev
+      username: admin
+      password: admin321
+      profile: dev,no-liquibase,swagger

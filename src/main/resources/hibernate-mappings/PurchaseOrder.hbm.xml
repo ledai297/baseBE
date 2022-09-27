@@ -1,0 +1,95 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="vn.sapo.domain.purchaseorder">
+    <class name="PurchaseOrder" table="purchase_order"
+           schema="public">
+        <meta attribute="class-description">
+            This class contains the Order hibernate entity.
+        </meta>
+
+        <id name="id" type="java.lang.Long" column="id" access="field"/>
+        <version column="version" type="java.lang.Integer"
+                 unsaved-value="null"
+                 insert="true"
+                 name="version"
+                 access="field"/>
+
+        <property name="code" column="code" access="field"/>
+        <property name="vendorId" column="vendor_id" access="field"/>
+        <property name="warehouseId" column="warehouse_id" access="field"/>
+        <property name="status" column="status" access="field">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">vn.sapo.statics.purchaseorder.PurchaseOrderStatus</param>
+                <param name="useNamed">true</param>
+            </type>
+        </property>
+        <property name="totalAmount" column="total_amount" access="field"/>
+        <property name="totalTaxAmount" column="total_tax_amount" access="field"/>
+        <property name="purchaseDate" column="purchase_date" access="field"/>
+        <property name="expectedDeliveryDate" column="expected_delivery_date" access="field"/>
+        <property name="createdDate" column="created_date" access="field"/>
+        <property name="createdBy" column="created_by" access="field"/>
+        <property name="modifiedDate" column="modified_date" access="field"/>
+        <property name="confirmedDate" column="confirmed_date" access="field"/>
+        <property name="completedDate" column="completed_date" access="field"/>
+        <property name="cancelledDate" column="cancelled_date" access="field"/>
+        <property name="rejectedDate" column="rejected_date" access="field"/>
+        <property name="deleted" column="deleted" access="field"/>
+        <property name="deletedDate" column="deleted_date" access="field"/>
+        <property name="note" column="note" access="field"/>
+        <property name="cancellationReason" column = "cancellation_reason" access="field">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">vn.sapo.statics.purchaseorder.PurchaseOrderCancellationReason</param>
+                <param name="useNamed">true</param>
+            </type>
+        </property>
+        <property name="cancellationReasonDetail" column = "cancellation_reason_detail" access="field"/>
+        <component name="vendorAddress" access="field">
+            <property name="label" column="vendor_address_label" access="field"/>
+            <property name="phoneNumber" column="vendor_address_phone_number" access="field"/>
+            <property name="countryId" column="vendor_address_country_id" access="field"/>
+            <property name="provinceId" column="vendor_address_province_id" access="field"/>
+            <property name="districtId" column="vendor_address_district_id" access="field"/>
+            <property name="wardId" column="vendor_address_ward_id" access="field"/>
+            <property name="line1" column="vendor_address_line1" access="field"/>
+            <property name="line2" column="vendor_address_line2" access="field"/>
+        </component>
+
+        <bag name="lineItems" table="purchase_order_line_item"
+             cascade="all"
+             lazy="false" fetch="select"
+             access="field"
+        >
+            <key>
+                <column name="purchase_order_id" not-null="true"/>
+            </key>
+            <one-to-many class="vn.sapo.domain.purchaseorder.PurchaseOrderLineItem"/>
+        </bag>
+
+    </class>
+    <class name="vn.sapo.domain.purchaseorder.PurchaseOrderLineItem"
+           table="purchase_order_line_item">
+        <id name="id" type="java.lang.Long" column="id" access="field"/>
+        <version column="version" type="java.lang.Integer"
+                 unsaved-value="null"
+                 insert="true"
+                 name="version"
+                 access="field"/>
+
+        <property name="variantId" column="variant_id" access="field"/>
+        <property name="quantity" column="quantity" access="field"/>
+        <property name="taxRate" column="tax_rate" access="field"/>
+        <property name="price" column="price" access="field"/>
+        <property name="taxAmount" column="tax_amount" access="field"/>
+        <property name="amount" column="amount" access="field"/>
+        <property name="createdDate" column="created_date" access="field"/>
+        <property name="createdBy" column="created_by" access="field"/>
+        <property name="modifiedDate" column="modified_date" access="field"/>
+
+        <many-to-one name="aggRoot" class="vn.sapo.domain.purchaseorder.PurchaseOrder"
+                     cascade="all" access="field">
+            <column name="purchase_order_id"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>

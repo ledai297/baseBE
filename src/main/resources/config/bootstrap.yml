@@ -1,0 +1,14 @@
+config-server:
+  address: 192.168.12.21
+  port: 8888
+
+spring:
+  application:
+    name: purchase-order-service
+  cloud:
+    config:
+      fail-fast: true
+      uri: http://${config-server.address}:${config-server.port}
+      label: master
+      username: admin
+      password: admin321

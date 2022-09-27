@@ -1,0 +1,40 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "vn.sapo",
+      "nativeLanguage": "en"
+    },
+    "jhipsterVersion": "6.10.1",
+    "applicationType": "monolith",
+    "baseName": "monolithic",
+    "packageName": "vn.sapo",
+    "packageFolder": "vn/sapo",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "no",
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "postgresql",
+    "prodDatabaseType": "postgresql",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": false,
+    "buildTool": "maven",
+    "enableSwaggerCodegen": true,
+    "jwtSecretKey": "MDJlYjE3ZGIxYmQ1NzEwNjUwOTIwYWNiZDEwZTFlZWVjYTY5YTVjMDY0MmQ4YzY2NGY3YTkwNmZjMTk2YWQyNzc2NTg0NGQ4ZDA0YmVhMjIxMDk5MjI4MzYwNmU5NGM3NDBlM2Q2ZWI1OWI2NmI1YjhiNmNjNGUzM2I0N2M5NjA=",
+    "embeddableLaunchScript": false,
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "skipClient": true,
+    "creationTimestamp": 1595047198012,
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "enableTranslation": true,
+    "nativeLanguage": "en",
+    "languages": ["en"],
+    "blueprints": []
+  }
+}
